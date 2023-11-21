@@ -1,4 +1,4 @@
-name: Ax3600_5.15_config
+name: Generate_Ax3600_5.15_config
 
 on:
   repository_dispatch:
