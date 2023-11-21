@@ -44,7 +44,7 @@ git clone https://github.com/sirpdboy/luci-app-netdata.git package/luci-app-netd
 #git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-theme-argon
 #git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config
 #rm -rf ../lean/luci-theme-argon
-sed -i '/CYXluq4wUazHjmCDBCqXF/d' package/lean/default-settings/files/zzz-default-settings    # 设置密码为空
+
 # rm -rf feeds/packages/utils/runc/Makefile   # 临时删除run1.0.3
 # svn export https://github.com/openwrt/packages/trunk/utils/runc/Makefile feeds/packages/utils/runc/Makefile   # 添加runc1.0.2
 #rm -rf luci-theme-argon
