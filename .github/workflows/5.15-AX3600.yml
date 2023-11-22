@@ -95,8 +95,9 @@ jobs:
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
     
     - name: Remove feeds folder and update
-      working-directory: /workdir/openwrt
+      working-directory: /workdir
       run: |
+        cd openwrt
         rm -rf feeds
         cd ..
         feeds update -a
