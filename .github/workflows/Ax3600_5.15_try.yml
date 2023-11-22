@@ -80,8 +80,10 @@ jobs:
         echo "status=success" >> ${GITHUB_OUTPUT}
         df -Th
         
-    - name: Add /usr/local/lib to library path
+
+    - name: Set library path
       run: |
+        export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
         echo "/usr/local/lib" | sudo tee -a /etc/ld.so.conf.d/local.conf
         sudo ldconfig
 
