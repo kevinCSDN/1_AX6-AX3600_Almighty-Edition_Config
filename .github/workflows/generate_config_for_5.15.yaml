@@ -64,24 +64,31 @@ jobs:
         sudo ldconfig
 
     
-    - name: 下载固件源码
+    - name: Clone source code
       working-directory: /workdir
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-        
-    - name: 加载自定义设置和调整配置
+    
+    - name: Remove feeds folder and update
+      working-directory: /workdir/openwrt
+      run: |
+        rm -rf feeds
+        cd ..
+        feeds update -a
+    
+    - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
-        
-    - name: 更新源
+    
+    - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
-
-    - name: 安装源
+    
+    - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
       
     - name: 加载自定义设置和调整配置
