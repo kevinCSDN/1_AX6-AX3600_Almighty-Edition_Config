@@ -77,7 +77,7 @@ jobs:
         cd openwrt
         rm -rf feeds
         cd ..
-        feeds update -a
+        ./scripts/feeds update -a
     
     - name: Load custom feeds
       run: |
