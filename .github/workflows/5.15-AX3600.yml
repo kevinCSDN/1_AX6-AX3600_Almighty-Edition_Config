@@ -65,9 +65,9 @@ jobs:
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install $(curl -fsSL https://is.gd/depends_ubuntu_2204)
         sudo -E apt-get install libev-dev
-        wget https://ftp.osuosl.org/pub/blfs/conglomeration/pcre2/pcre2-10.36.tar.bz2
-        tar -jxvf pcre2-10.36.tar.bz2
-        cd pcre2-10.36
+        wget https://ftp.osuosl.org/pub/blfs/conglomeration/pcre2/pcre2-10.30.tar.bz2
+        tar -jxvf pcre2-10.30.tar.bz2
+        cd pcre2-10.30
         ./configure
         make
         sudo make install
@@ -94,12 +94,12 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
     
-#    - name: Cache
-#      uses: klever1988/cachewrtbuild@main
-#      with:
-#        ccache: 'true'
-#        clean:  'false'
-#        prefix: ${{ github.workspace }}/openwrt    
+    - name: Remove feeds folder and update
+      working-directory: /workdir/openwrt
+      run: |
+        rm -rf feeds
+        cd ..
+        feeds update -a
     
     - name: Load custom feeds
       run: |
@@ -110,7 +110,7 @@ jobs:
     
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
-
+    
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
