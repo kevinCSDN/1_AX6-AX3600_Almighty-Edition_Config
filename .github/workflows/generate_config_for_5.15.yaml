@@ -72,8 +72,9 @@ jobs:
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
     
     - name: Remove feeds folder and update
-      working-directory: /workdir/openwrt
+      working-directory: /workdir
       run: |
+        cd openwrt
         rm -rf feeds
         cd ..
         feeds update -a
@@ -89,7 +90,7 @@ jobs:
       run: cd openwrt && ./scripts/feeds update -a
     
     - name: Install feeds
-      run: cd openwrt && ./scripts/feeds install -a
+      run: cd openwrt && ./scripts/feeds install -a -f
       
     - name: 加载自定义设置和调整配置
       run: |
