@@ -94,14 +94,7 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
     
-    - name: Remove feeds folder and update
-      working-directory: /workdir
-      run: |
-        cd openwrt
-        rm -rf feeds
-        cd ..
-        feeds update -a
-    
+
     - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
@@ -110,7 +103,7 @@ jobs:
         $GITHUB_WORKSPACE/$DIY_P1_SH
     
     - name: Update feeds
-      run: cd openwrt && ./scripts/feeds update -a
+      run: cd openwrt && ./scripts/feeds update -a -f
     
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
