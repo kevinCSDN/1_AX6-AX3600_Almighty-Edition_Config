@@ -57,11 +57,12 @@ jobs:
         echo "status=success" >> ${GITHUB_OUTPUT}
         df -Th
         
-    - name: Debug Information
+    - name: Set library path
       run: |
-        echo "Current directory: $(pwd)"
-        echo "Contents of /usr/local/lib:"
-        ls /usr/local/lib
+        export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+        echo "/usr/local/lib" | sudo tee -a /etc/ld.so.conf.d/local.conf
+        sudo ldconfig
+
     
     - name: 下载固件源码
       working-directory: /workdir
