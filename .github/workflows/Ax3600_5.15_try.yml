@@ -71,7 +71,12 @@ jobs:
         sudo chown $USER:$GROUPS /workdir
         echo "status=success" >> ${GITHUB_OUTPUT}
         df -Th
-    
+        
+    - name: Add /usr/local/lib to library path
+      run: |
+        echo "/usr/local/lib" | sudo tee -a /etc/ld.so.conf.d/local.conf
+        sudo ldconfig
+
     - name: Clone source code
       working-directory: /workdir
       run: |
