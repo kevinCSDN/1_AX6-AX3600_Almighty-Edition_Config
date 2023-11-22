@@ -65,7 +65,7 @@ jobs:
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install $(curl -fsSL https://is.gd/depends_ubuntu_2204)
         sudo -E apt-get install libev-dev
-        wget https://ftp.pcre.org/pub/pcre/pcre2-10.39.tar.gz
+        wget https://ftp.osuosl.org/pub/blfs/conglomeration/pcre/pcre2-10.39.tar.gz
         tar -zxvf pcre2-10.39.tar.gz
         cd pcre2-10.39
         ./configure
