@@ -114,16 +114,18 @@ jobs:
         cd openwrt
         make defconfig
         ls -a
-        sudo mkdir ${{ env.CONFIG }}config && sudo cp .config ${{ env.CONFIG }}config/${{ env.CONFIG }}.config
-
+        mkdir -p ${{ env.CONFIG }}config  # 使用-p选项确保目录存在
+        cp .config ${{ env.CONFIG }}config/${{ env.CONFIG }}.config
+    
         # 在这里添加 sed 命令删除以 '#' 开头的行
-        sed -i '/^#/d' ${{ env.CONFIG }}config/${{ env.CONFIG }}.config
-        
         cd ${{ env.CONFIG }}config
+        sed -i '/^#/d' ${{ env.CONFIG }}.config
+    
         ls
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
         echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+
         
     - name: 上传config
       uses: actions/upload-artifact@main
